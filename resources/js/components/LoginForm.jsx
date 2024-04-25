@@ -26,9 +26,12 @@ function LoginForm() {
       const response = await axios.post('http://localhost/Invitations/public/api/login', formData);
       console.log(response.data.token); // Imprime el token en la consola
       const token = response.data.token;
-      setToken(token);
+      localStorage.setItem('token', token);
+
+      window.location.href = 'http://localhost/Invitations/public/Dashboard/events';
+
       // Aquí puedes guardar el token en el estado o en localStorage y redirigir al usuario a otra página
-      window.location.href = 'https://gist.github.com/dasdo/9ff71c5c0efa037441b6';
+
     } catch (error) {
       setError(error.response.data.error);
       setShowModal(true); // Mostrar el modal
