@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -34,32 +36,39 @@ function LoginForm() {
 
   return (
     <div>
-      <h2>Iniciar sesión</h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="email">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Contraseña</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Iniciar sesión
-        </Button>
-      </Form>
+      <Row>
+        <Col></Col>
+        <Col xs={5}><h2>Iniciar sesión</h2>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="password">
+              <Form.Label>Contraseña</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+            <h1></h1>
+            <Button variant="primary" type="submit">
+              Iniciar sesión
+            </Button>
+          </Form>
+        </Col>
+        <Col></Col>
+      </Row>
+
 
       {/* Modal para mostrar el error */}
       <Modal show={showModal} onHide={handleCloseModal}>

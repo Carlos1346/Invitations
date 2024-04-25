@@ -15,26 +15,26 @@ function Menu() {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         minHeight: '100vh',
-      }}>
-      <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand href="#home">Invitations</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link as={Link} to="listcard">Iniciar Sesion</Nav.Link>
-              <Nav.Link as={Link} to="listproduct">Registrarse</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      <section>
 
-        <Container>
-          <Outlet>
-          </Outlet>
-        </Container>
-      </section>
+      }}>
+        <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+          <Container>
+            <Navbar.Brand href="#home">Invitations</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="me-auto">
+                <Nav.Link as={Link} to="listcard">Iniciar Sesion</Nav.Link>
+                <Nav.Link as={Link} to="listproduct">Registrarse</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+        <section style={{ marginTop: '50px' }}>
+          <Container>
+            <Outlet>
+            </Outlet>
+          </Container>
+        </section>
       </div>
     </>
   );
