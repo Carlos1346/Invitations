@@ -6,12 +6,16 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, Outlet } from 'react-router-dom'
 import Image from 'react-bootstrap/Image';
 import Carousel from 'react-bootstrap/Carousel';
+import { Row, Col, ListGroup } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTwitter, faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+
 
 
 function LoginView() {
   return (
     <>
-      
+
       <div style={{
         backgroundImage: "url('https://fondosmil.co/fondo/36833.jpg')",
         backgroundSize: 'cover',
@@ -39,7 +43,7 @@ function LoginView() {
         </section>
 
         <Container>
-          <Container style={{ maxWidth: '800px', borderRadius: '10px', overflow: 'hidden', marginTop: '50px' }}>
+          <Container style={{ maxWidth: '750px', borderRadius: '10px', overflow: 'hidden', marginTop: '50px' }}>
             <Carousel>
               <Carousel.Item>
                 <img
@@ -80,6 +84,43 @@ function LoginView() {
             </Carousel>
           </Container>
         </Container>
+        <div style={{ marginTop: '50px' }}>
+
+          <footer className="footer mt-auto py-3 bg-body-tertiary text-black">
+            <Container>
+              <Row>
+                <Col md={6}>
+                  <h5>Enlaces Útiles</h5>
+                  <ListGroup variant="flush">
+                    <Link to="/ruta-del-elemento-1" className="list-group-item list-group-item-action font-weight-bold">Acerca de nosotros.</Link>
+                    <Link to="/ruta-del-elemento-2" className="list-group-item list-group-item-action font-weight-bold">Contactanos.</Link>
+                    <Link to="/ruta-del-elemento-3" className="list-group-item list-group-item-action font-weight-bold">Servicios.</Link>
+                  </ListGroup>
+                </Col>
+                <Col md={6}>
+                  <h3>Síguenos en Redes Sociales</h3>
+                  <ul className="list-inline">
+                    <li className="list-inline-item">
+                      <a href="https://twitter.com">
+                        <FontAwesomeIcon icon={faTwitter} size="4x" style={{ color: '#3b5998' }} />
+                      </a>
+                    </li>
+                    <li className="list-inline-item">
+                      <a href="https://facebook.com">
+                        <FontAwesomeIcon icon={faFacebook} size="4x" style={{ color: '#3b5998', marginLeft: '30px' }} />
+                      </a>
+                    </li>
+                    <li className="list-inline-item">
+                      <a href="https://instagram.com">
+                        <FontAwesomeIcon icon={faInstagram} size="4x" style={{ color: '#3b5998', marginLeft: '30px' }} />
+                      </a>
+                    </li>
+                  </ul>
+                </Col>
+              </Row>
+            </Container>
+          </footer>
+        </div>
       </div>
     </>
   );

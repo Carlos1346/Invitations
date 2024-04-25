@@ -15,6 +15,7 @@ function EventCard() {
       try {
         // Obtener el token del localStorage
         const token = localStorage.getItem('token');
+        console.log("Token recuperado:", token);
 
         // Verificar si el token está presente
         if (!token) {
