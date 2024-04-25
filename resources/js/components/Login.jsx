@@ -6,6 +6,7 @@ import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+
 function LoginForm() {
   const [formData, setFormData] = useState({
     email: '',
@@ -13,6 +14,7 @@ function LoginForm() {
   });
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [token, setToken] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,7 +25,10 @@ function LoginForm() {
     try {
       const response = await axios.post('http://localhost/Invitations/public/api/login', formData);
       console.log(response.data.token); // Imprime el token en la consola
+      const token = response.data.token;
+      setToken(token);
       // Aquí puedes guardar el token en el estado o en localStorage y redirigir al usuario a otra página
+      window.location.href = 'https://gist.github.com/dasdo/9ff71c5c0efa037441b6';
     } catch (error) {
       setError(error.response.data.error);
       setShowModal(true); // Mostrar el modal
