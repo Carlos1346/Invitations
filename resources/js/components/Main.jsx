@@ -1,25 +1,36 @@
 import React from 'react';
-import Menu from "./Menu";
-import Example from "./Example";
 import { Routes, Route, Navigate } from 'react-router-dom';
-import LoginForm from './Login';
+//Vistas
+import LoginView from './LoginView';
 
-//import AuthPage from './AuthPage';
+//Componentes
+import LoginForm from './LoginForm';
+import NavDashboard from './NavDashboard';
+import RegisterForm from './RegisterForm';
+import EventCard from './EventCard';
+
 
 function Main() {
   return (
     <Routes>
-      <Route path="/Invitations/public/"
-        element={<Menu />}>
-        {/* <Route index element={<Home /> } /> */}
-        <Route path="listcard" element={<LoginForm />} />
-        
+      {/* Ruta para la vista inicial "Start" */}
+      <Route path="/Invitations/public/Start"
+        element={<LoginView />}>
+        <Route path="login" element={<LoginForm />} />
+        <Route path="register" element={<RegisterForm />} />
+        <Route path="events" element={<EventCard />} />
 
-
-        <Route path="*"
-          element={<Navigate replace to="/Invitations/public/" />} />
+        {/*<Route path="*" element={<Navigate replace to="/Invitations/public/Start" />} />*/}
       </Route>
 
+      {/* Ruta para la vista despues de la autenticación "Dashboard" */}
+      <Route path="/Invitations/public/Dashboard"
+        element={<NavDashboard />}>
+
+        <Route path="events" element={<EventCard />} />
+
+
+      </Route>
 
 
     </Routes>
