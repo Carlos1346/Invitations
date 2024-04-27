@@ -1,13 +1,15 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 //Vistas
-import LoginView from './LoginView';
+//import LoginView from '../components/LoginView';
+import LoginPage from '../pages/LoginPage';
 
 //Componentes
-import LoginForm from './LoginForm';
-import NavDashboard from './NavDashboard';
-import RegisterForm from './RegisterForm';
-import EventCard from './EventCard';
+import LoginForm from '../components/LoginForm';
+import NavDashboard from '../components/NavDashboard';
+import RegisterForm from '../components/RegisterForm';
+import EventCard from '../components/EventCard';
+
 
 
 function Main() {
@@ -15,10 +17,9 @@ function Main() {
     <Routes>
       {/* Ruta para la vista inicial "Start" */}
       <Route path="/Invitations/public/Start"
-        element={<LoginView />}>
+        element={<LoginPage />}>
         <Route path="login" element={<LoginForm />} />
         <Route path="register" element={<RegisterForm />} />
-        <Route path="events" element={<EventCard />} />
 
         {/*<Route path="*" element={<Navigate replace to="/Invitations/public/Start" />} />*/}
       </Route>
