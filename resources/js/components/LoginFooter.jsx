@@ -8,9 +8,9 @@ import { faTwitter, faFacebook, faInstagram } from '@fortawesome/free-brands-svg
 function LoginFooter() {
     return (
         <>
-            <div style={{ marginTop: '50px' }}>
+            <div style={{ marginTop: '50px'}}>
 
-                <footer className="footer mt-auto py-3 bg-body-tertiary text-black">
+                <footer className="footer mt-auto py-3 bg-body-tertiary text-black" >
                     <Container>
                         <Row>
                             <Col md={6}>

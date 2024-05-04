@@ -1,18 +1,25 @@
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link, Outlet } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, Outlet } from 'react-router-dom';
+import { Container, Navbar, Nav, NavDropdown, Form, Button } from 'react-bootstrap';
 
 function NavDashboard() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    // Aquí puedes agregar lógica adicional para cambiar el tema de tu aplicación
+  };
+
+  const handleLogout = () => {
+    // Aquí puedes agregar la lógica para cerrar sesión
+    console.log('Cerrar sesión');
+  };
+
   return (
     <>
-
-      <Navbar expand="lg" className="bg-body-tertiary">
+      <Navbar expand="lg" className={darkMode ? "bg-dark text-light" : "bg-light"}>
         <Container fluid>
-          <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+          <Navbar.Brand as={Link} to="#">Invitations</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -20,21 +27,13 @@ function NavDashboard() {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link as={Link} to="events">Home</Nav.Link>
-              <Nav.Link href="#action2">Link</Nav.Link>
-              <NavDropdown title="Link" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
-                </NavDropdown.Item>
+              <Nav.Link as={Link} to="events">Eventos</Nav.Link>
+              <Nav.Link href="#action2">Calendario</Nav.Link>
+              <NavDropdown title="Eventos" id="navbarScrollingDropdown">
+                <NavDropdown.Item href="#action3">Crear Evento</NavDropdown.Item>
+                <NavDropdown.Item href="#action4">Recuerdos</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
-                </NavDropdown.Item>
-              </NavDropdown>
-              <Nav.Link href="#" disabled>
-                Link
-              </Nav.Link>
+              </NavDropdown>              
             </Nav>
             <Form className="d-flex">
               <Form.Control
@@ -43,23 +42,26 @@ function NavDashboard() {
                 className="me-2"
                 aria-label="Search"
               />
-              <Button variant="outline-success">Search</Button>
+              <Button variant="outline-success">Buscar</Button>
             </Form>
+            <Button variant="outline-danger" className="ms-2" onClick={toggleDarkMode}>
+              {darkMode ? 'Modo Claro' : 'Modo Oscuro'}
+            </Button>
+            <Button variant="outline-danger" className="ms-2" onClick={handleLogout}>
+              Perfil
+            </Button>
+            <Button variant="outline-danger" className="ms-2" onClick={handleLogout}>
+              Cerrar Sesión
+            </Button>
           </Navbar.Collapse>
         </Container>
       </Navbar>
       <section style={{ marginTop: '50px' }}>
         <Container>
-          <Outlet>
-          </Outlet>
+          <Outlet />
         </Container>
       </section>
-
     </>
-
-
-
-
   );
 }
 
