@@ -28,20 +28,16 @@ function Main() {
         element={<LoginPage />}>
         <Route path="login" element={<LoginForm />} />
         <Route path="register" element={<RegisterForm />} />
-
         {/*<Route path="*" element={<Navigate replace to="/Invitations/public/Start" />} />*/}
       </Route>
 
       {/* Ruta para la vista despues de la autenticación "Dashboard" */}
       <Route path="/Invitations/public/Dashboard"
         element={<NavDashboard />}>
-
         <Route path="events" element={<EventCard />} />
-
-
       </Route>
 
-      <Route path="/Invitations/public/Start/Paco" element={<Example />}></Route>
+      <Route path="/Invitations/public/Dashboard/Paco" element={<Example />}></Route>
 
 
     </Routes>
