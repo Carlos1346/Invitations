@@ -9,11 +9,19 @@ import LoginForm from '../components/LoginForm';
 import NavDashboard from '../components/NavDashboard';
 import RegisterForm from '../components/RegisterForm';
 import EventCard from '../components/EventCard';
+import Example from '../components/Example';
 
 
 
 function Main() {
   return (
+    <div style={{
+      backgroundImage: "url('https://fondosmil.co/fondo/36833.jpg')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      minHeight: '100vh',
+
+    }}>
     <Routes>
       {/* Ruta para la vista inicial "Start" */}
       <Route path="/Invitations/public/Start"
@@ -33,8 +41,12 @@ function Main() {
 
       </Route>
 
+      <Route path="/Invitations/public/Start/Paco" element={<Example />}></Route>
+
 
     </Routes>
+
+    </div>
 
 
   )

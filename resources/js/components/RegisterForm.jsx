@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
-import axios from 'axios';
+import React, { useState } from "react";
+import { Form, Button, Row, Col } from "react-bootstrap";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useToken } from "../context/TokenContext";
 
 function RegisterForm() {
+    const { saveToken } = useToken();
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
+        name: "",
+        email: "",
+        password: "",
     });
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,9 +22,15 @@ function RegisterForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost/Invitations/public/api/register', formData);
-            console.log(response.data.token); // Imprime el token en la consola
-            // Aquí puedes guardar el token en el estado o en localStorage y redirigir al usuario a otra página
+            const response = await axios.post(
+                "http://localhost/Invitations/public/api/register",
+                formData
+            );
+            const token = response.data.token;
+            saveToken(token);
+            console.log("Token guardado:", token);
+
+            navigate("/invitations/public/Dashboard/events"); // Corregido el destino de la redirección
         } catch (error) {
             setError(error.response.data.error);
         }
