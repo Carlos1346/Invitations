@@ -29,6 +29,7 @@ function NavDashboard() {
             >
               <Nav.Link as={Link} to="events">Eventos</Nav.Link>
               <Nav.Link href="#action2">Calendario</Nav.Link>
+              <Nav.Link as={Link} to="Paco">Probar Componentes</Nav.Link>
               <NavDropdown title="Eventos" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="#action3">Crear Evento</NavDropdown.Item>
                 <NavDropdown.Item href="#action4">Recuerdos</NavDropdown.Item>
