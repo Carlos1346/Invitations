@@ -10,8 +10,7 @@ function LoginPage() {
   return (
     <div>
       <div >
-        <LoginNavbar />
-               
+        <LoginNavbar />               
         <LoginCarousel />
         <LoginFooter />
       </div>
