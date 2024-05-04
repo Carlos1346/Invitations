@@ -19,9 +19,6 @@ function LoginNavbar() {
                             <Nav.Link as={Link} to="login">Iniciar Sesion</Nav.Link>
                             <Nav.Link as={Link} to="register">Registrarse</Nav.Link>
                         </Nav>
-                        <Nav>
-                            <Nav.Link onClick={toggleTheme}>{theme === 'light' ? 'Dark Theme' : 'Light Theme'}</Nav.Link>
-                        </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

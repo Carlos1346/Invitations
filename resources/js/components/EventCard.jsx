@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import { useToken } from '../context/TokenContext'; // Importar el hook useToken desde el archivo TokenContext.js
 
 function EventCard() {
-    const { token, saveToken } = useToken(); // Obtener el token del contexto
+    const { token } = useToken(); // Obtener el token del contexto
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
