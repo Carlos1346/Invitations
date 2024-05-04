@@ -18,7 +18,7 @@ function LoginNavbar() {
                         <Nav className="me-auto">
                             <Nav.Link as={Link} to="login">Iniciar Sesion</Nav.Link>
                             <Nav.Link as={Link} to="register">Registrarse</Nav.Link>
-                            <Nav.Link as={Link} to="Paco">Probar Componentes</Nav.Link>
+                            
                         </Nav>
                         <Nav>
                             <Nav.Link onClick={toggleTheme}>{theme === 'light' ? 'Dark Theme' : 'Light Theme'}</Nav.Link>

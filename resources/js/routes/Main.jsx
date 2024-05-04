@@ -41,7 +41,7 @@ function Main() {
 
       </Route>
 
-      <Route path="/Invitations/public/Start/Paco" element={<Example />}></Route>
+      <Route path="/Invitations/public/Dashboard/Paco" element={<Example />}></Route>
 
 
     </Routes>
