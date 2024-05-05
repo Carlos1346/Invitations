@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 //Vistas
-//import LoginView from '../components/LoginView';
 import LoginPage from '../pages/LoginPage';
+import '/resources/css/Main.css';
 
 //Componentes
 import LoginForm from '../components/LoginForm';
@@ -16,10 +16,12 @@ import Example from '../components/Example';
 function Main() {
   return (
     <div style={{
-      backgroundImage: "url('https://fondosmil.co/fondo/36833.jpg')",
+      //backgroundImage: "url('https://fondosmil.co/fondo/36833.jpg')",
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       minHeight: '100vh',
+      backgroundColor: "rgb" 
+      
 
     }}>
     <Routes>
