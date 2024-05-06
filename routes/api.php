@@ -39,6 +39,8 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('friend_requests/reject/{id}', [FriendController::class, 'rejectFriendRequest']);
     Route::delete('friend_requests/cancel/{id}', [FriendController::class, 'cancelFriendRequest']);
     Route::delete('friendships/remove/{id}', [FriendController::class, 'unfriend']);
+    Route::get('friendships/getfriends', [FriendController::class, 'getFriends']);
+
 
     //Rutas UserController
     Route::delete('users_destroy', [UserController::class, 'destroy']);

@@ -66,16 +66,11 @@ function NavDashboard() {
                         <Navbar.Collapse id="navbarScroll">
                             <Nav
                                 className="me-auto my-2 my-lg-0"
-                                style={{ maxHeight: "100px" }}
+                                
                                 navbarScroll
                             >
-                                <Nav.Link as={Link} to="events">
-                                    Eventos
-                                </Nav.Link>
+
                                 <Nav.Link href="#action2">Calendario</Nav.Link>
-                                <Nav.Link as={Link} to="Paco">
-                                    Probar Componentes
-                                </Nav.Link>
                                 <NavDropdown
                                     title="Eventos"
                                     id="navbarScrollingDropdown"
@@ -84,45 +79,75 @@ function NavDashboard() {
                                         Crear Evento
                                     </NavDropdown.Item>
                                     <NavDropdown.Item href="#action4">
-                                        Recuerdos
+                                        Mis eventos
                                     </NavDropdown.Item>
                                     <NavDropdown.Divider />
+                                    <NavDropdown.Item href="#action4">
+                                        Agenda
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item href="#action4">
+                                        Recuerdos
+                                    </NavDropdown.Item>
+                                </NavDropdown>
+                                
+                                <Form className="d-flex">
+                                    <Form.Control
+                                        type="search"
+                                        placeholder="Search"
+                                        className="me-2"
+                                        aria-label="Search"
+                                        
+                                    />
+                                    <Button variant="outline-success">Buscar</Button>
+                                </Form>
+
+                                <Link to="/notificaciones" className="nav-link">
+                                    Notificaciones{" "}
+                                    {notificationCount > 0 && (
+                                        <Badge variant="danger">
+                                            {notificationCount}
+                                        </Badge>
+                                    )}
+                                </Link>
+                                <NavDropdown
+                                    title="Perfil"
+                                    id="navbarScrollingDropdown"
+                                >
+                                    <NavDropdown.Item href="#action3">
+                                        Ver Perfil
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item href="#action4">
+                                        Amigos
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item href="#action4">
+                                        Recuerdos
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item href="#action4">
+                                        Solicitudes de Amistad
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item href="#action4">
+                                        <Button
+                                            variant="outline-secondary"
+                                            onClick={toggleDarkMode}
+                                        >
+                                            {darkMode ? "Modo Claro" : "Modo Oscuro"}
+                                        </Button>
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item href="#action4">
+                                        <Button
+                                            variant="outline-danger"
+                                            onClick={handleLogout}
+                                        >
+                                            Cerrar Sesión
+                                        </Button>
+                                    </NavDropdown.Item>
+
                                 </NavDropdown>
                             </Nav>
-                            <Form className="d-flex">
-                                <Form.Control
-                                    type="search"
-                                    placeholder="Search"
-                                    className="me-2"
-                                    aria-label="Search"
-                                />
-                                <Button variant="outline-success">
-                                    Buscar
-                                </Button>
-                            </Form>
-                            <Link to="/notificaciones" className="nav-link">
-                                Notificaciones{" "}
-                                {notificationCount > 0 && (
-                                    <Badge variant="danger">
-                                        {notificationCount}
-                                    </Badge>
-                                )}
-                            </Link>
-                            <Button
-                                variant="outline-danger"
-                                className="ms-2"
-                                onClick={toggleDarkMode}
-                            >
-                                {darkMode ? "Modo Claro" : "Modo Oscuro"}
-                            </Button>
-                            <Button
-                                variant="outline-danger"
-                                className="ms-2"
-                                onClick={handleLogout}
-                            >
-                                Cerrar Sesión
-                            </Button>
+
                         </Navbar.Collapse>
+
                     </Container>
                 </Navbar>
             </div>
