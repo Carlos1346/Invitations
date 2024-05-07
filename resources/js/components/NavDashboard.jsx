@@ -29,6 +29,7 @@ function NavDashboard() {
                     "No se ha encontrado el token de autenticación"
                 );
             }
+            
 
             await axios.post(
                 "http://localhost/Invitations/public/api/logout",
@@ -42,6 +43,7 @@ function NavDashboard() {
             console.error("Error al cerrar sesión:", error);
         }
     };
+    
 
     return (
         <>
@@ -59,7 +61,7 @@ function NavDashboard() {
                     className={darkMode ? "bg-dark text-light" : "bg-light"}
                 >
                     <Container fluid>
-                        <Navbar.Brand as={Link} to="#">
+                        <Navbar.Brand as={Link} to="events">
                             Invitations
                         </Navbar.Brand>
                         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -70,7 +72,7 @@ function NavDashboard() {
                                 navbarScroll
                             >
 
-                                <Nav.Link href="#action2">Calendario</Nav.Link>
+                                <Nav.Link as={Link} to="calendar">Calendario</Nav.Link>
                                 <NavDropdown
                                     title="Eventos"
                                     id="navbarScrollingDropdown"
@@ -151,7 +153,7 @@ function NavDashboard() {
                     </Container>
                 </Navbar>
             </div>
-            <section style={{ marginTop: "100px" }}>
+            <section style={{ paddingTop: "100px" }}>
                 <Container>
                     <Outlet />
                 </Container>
