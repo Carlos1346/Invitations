@@ -51,12 +51,13 @@ Route::middleware('auth:api')->group(function () {
     Route::post('event_attendances_store', [EventAttendanceController::class, 'store']);
     Route::put('event_attendances_update/{id}', [EventAttendanceController::class, 'update']);
     Route::delete('event_attendances_destroy/{id}', [EventAttendanceController::class, 'destroy']);
+
     Route::post('mark_attendance', [EventAttendanceController::class, 'markAttendance']);
     Route::get('list_event_attendances/{eventId}', [EventAttendanceController::class, 'listEventAttendances']);
-    Route::get('list_user_events/{userId}', [EventAttendanceController::class, 'listUserEvents']);
+    Route::get('list_user_events', [EventAttendanceController::class, 'listUserEvents']);
     Route::get('attendance_statistics', [EventAttendanceController::class, 'attendanceStatistics']);
 
-    
+
 
 
 });

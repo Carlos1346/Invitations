@@ -1,6 +1,6 @@
-.main-container {
+#Background {
     background-size: cover;
     background-position: center;
     min-height: 100vh;
-    background-color: rgb;
+    background-color: rgb(210, 239, 248);
   }

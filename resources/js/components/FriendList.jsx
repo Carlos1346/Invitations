@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Button } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
-
 import { useToken } from '../context/TokenContext'; // Importar el hook useToken desde el archivo TokenContext.js
 
 function FriendsList() {

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Row, Col, Card, ListGroup } from "react-bootstrap";
-import { useToken } from "../context/TokenContext"; // Importar el hook useToken desde el archivo TokenContext.js
+import { Container, Row, Col, Card, ListGroup, Button } from "react-bootstrap"; // Importar Button desde react-bootstrap
+import { useToken } from "../context/TokenContext";
+import Spinner from 'react-bootstrap/Spinner';
 
 function EventCard() {
-  const { token } = useToken(); // Obtener el token del contexto
+  const { token } = useToken();
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,12 +13,10 @@ function EventCard() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        // Verificar si el token está presente
         if (!token) {
           throw new Error("No se ha encontrado el token de autenticación");
         }
 
-        // Realizar la solicitud a la API para obtener los eventos
         const response = await axios.get(
           "http://localhost/Invitations/public/api/events_index",
           {
@@ -27,8 +26,13 @@ function EventCard() {
           }
         );
 
-        // Almacenar los eventos en el estado del componente
-        setEvents(response.data);
+        // Agregar un campo adicional "asistencia" a cada evento
+        const eventsWithAttendance = response.data.map(event => ({
+          ...event,
+          asistencia: null // Inicialmente, el usuario no ha seleccionado ninguna asistencia
+        }));
+
+        setEvents(eventsWithAttendance);
         setLoading(false);
       } catch (error) {
         setError(error.message);
@@ -36,12 +40,69 @@ function EventCard() {
       }
     };
 
-    // Llamar a la función para obtener los eventos cuando el componente se renderice
     fetchEvents();
-  }, [token]); // Ejecutar cuando el token cambie
+  }, [token]);
+
+  const handleToggleAttendance = async (eventId, asistira) => {
+    try {
+      // Buscar el evento por ID
+      const updatedEvents = events.map(event => {
+        if (event.id === eventId) {
+          // Cambiar el estado de asistencia del evento
+          return {
+            ...event,
+            asistencia: asistira // Establecer el estado de asistencia seleccionado
+          };
+        }
+        return event;
+      });
+
+      setEvents(updatedEvents);
+
+      if (!token) {
+        throw new Error("No se ha encontrado el token de autenticación");
+      }
+
+      // Enviar la solicitud correspondiente al backend
+      if (asistira) {
+        // Si el usuario asistirá al evento
+        await axios.post(
+          "http://localhost/Invitations/public/api/mark_attendance",
+          {
+            event_id: eventId,
+            asistira: true,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } else {
+        // Si el usuario no asistirá al evento
+        await axios.delete(
+          `http://localhost/Invitations/public/api/event_attendances_destroy/${eventId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      }
+
+      console.log("Asistencia actualizada correctamente");
+
+    } catch (error) {
+      setError("Error al actualizar la asistencia");
+    }
+  };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
   }
 
   if (error) {
@@ -50,7 +111,7 @@ function EventCard() {
 
   return (
     <Container>
-      <h1>Eventos</h1>
+      <h1>Inicio</h1>
       <Row>
         {events.map((event) => (
           <Col key={event.id} xs={12} md={6} lg={4}>
@@ -73,8 +134,20 @@ function EventCard() {
                 </ListGroup.Item>
               </ListGroup>
               <Card.Body>
-                <Card.Link href="#">Asistire</Card.Link>
-                <Card.Link href="#">No Asistire</Card.Link>
+                <Button
+                  variant={event.asistencia === true ? "secondary" : "primary"}
+                  disabled={event.asistencia === true}
+                  onClick={() => handleToggleAttendance(event.id, true)}
+                >
+                  Asistiré
+                </Button>{' '}
+                <Button
+                  variant={event.asistencia === false ? "secondary" : "primary"}
+                  disabled={event.asistencia === false}
+                  onClick={() => handleToggleAttendance(event.id, false)}
+                >
+                  No Asistiré
+                </Button>{' '}
               </Card.Body>
             </Card>
           </Col>
