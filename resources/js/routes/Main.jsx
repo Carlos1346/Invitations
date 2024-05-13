@@ -10,9 +10,14 @@ import NavDashboard from '../components/NavDashboard';
 import RegisterForm from '../components/RegisterForm';
 import EventCard from '../components/EventCard';
 import Example from '../components/Example';
-import FriendsList from '../components/FriendList';
+import FriendsList from '../components/FriendsList';
 import MyBigCalendar from '../components/MyBigCalendar';
+import EventCreateForm from '../components/EventCreateForm';
+import EventList from '../components/EventList';
+
 import '../../css/Main.css'
+import UserSearch from '../components/UserSearch';
+import NotificationsTab from '../components/NotificationsTab';
 
 
 function Main() {
@@ -31,6 +36,14 @@ function Main() {
       <Route path="/Invitations/public/Dashboard" element={<NavDashboard />}>
         <Route path="events" element={<EventCard />} />
         <Route path="calendar" element={<MyBigCalendar />} />
+        <Route path="createEvent" element={<EventCreateForm/>} />
+        <Route path="eventList" element={<EventList/>} />
+        <Route path="search" element={<UserSearch/>} />
+        <Route path="friendsList" element={<FriendsList/>} />
+        <Route path="notifications" element={<NotificationsTab/>} />
+
+
+
       </Route>
 
       <Route path="/Invitations/public/Dashboard/Paco" element={<FriendsList />} />
