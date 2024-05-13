@@ -14,6 +14,18 @@ class EventController extends Controller
         return $events;
     }
 
+    public function indexUserEvents()
+    {
+        // Obtener el ID del usuario autenticado
+        $userId = auth()->id();
+        
+        // Obtener los eventos creados por el usuario autenticado
+        $events = Event::where('user_id_creator', $userId)->get();
+
+        // Retornar los eventos
+        return response()->json(['events' => $events], 200);
+    }
+
     public function create(Request $request)
     {
         DB::table('events')->insert([

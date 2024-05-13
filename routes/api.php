@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\NotificationsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
@@ -19,6 +20,9 @@ Route::put('users_update/{id}', [UserController::class, 'update']);
 Route::delete('users_destroy/{id}', [UserController::class, 'destroy']);
 Route::get('users_search', [UserController::class, 'search']);
 
+
+
+
 //Rutas protegidas con autenticacion de usuario
 Route::middleware('auth:api')->group(function () {
     //Rutas RegisterController
@@ -27,6 +31,7 @@ Route::middleware('auth:api')->group(function () {
 
     //Rutas EventController
     Route::get('events_index', [EventController::class, 'index']);
+    Route::get('indexUserEvents', [EventController::class, 'indexUserEvents']);
     Route::post('events_create', [EventController::class, 'create']);
     Route::get('events_show/{id}', [EventController::class, 'show']);
     Route::put('events_update/{id}', [EventController::class, 'update']);
@@ -40,6 +45,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('friend_requests/cancel/{id}', [FriendController::class, 'cancelFriendRequest']);
     Route::delete('friendships/remove/{id}', [FriendController::class, 'unfriend']);
     Route::get('friendships/getfriends', [FriendController::class, 'getFriends']);
+    Route::get('notifications', [NotificationsController::class, 'indexNotifications']);
 
 
     //Rutas UserController
@@ -51,18 +57,11 @@ Route::middleware('auth:api')->group(function () {
     Route::post('event_attendances_store', [EventAttendanceController::class, 'store']);
     Route::put('event_attendances_update/{id}', [EventAttendanceController::class, 'update']);
     Route::delete('event_attendances_destroy/{id}', [EventAttendanceController::class, 'destroy']);
-
     Route::post('mark_attendance', [EventAttendanceController::class, 'markAttendance']);
     Route::get('list_event_attendances/{eventId}', [EventAttendanceController::class, 'listEventAttendances']);
     Route::get('list_user_events', [EventAttendanceController::class, 'listUserEvents']);
     Route::get('attendance_statistics', [EventAttendanceController::class, 'attendanceStatistics']);
-
-
-
-
 });
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
