@@ -18,6 +18,7 @@ import EventList from '../components/EventList';
 import '../../css/Main.css'
 import UserSearch from '../components/UserSearch';
 import NotificationsTab from '../components/NotificationsTab';
+import UserProfile from '../components/UserProfile';
 
 
 function Main() {
@@ -38,10 +39,10 @@ function Main() {
         <Route path="calendar" element={<MyBigCalendar />} />
         <Route path="createEvent" element={<EventCreateForm/>} />
         <Route path="eventList" element={<EventList/>} />
-        <Route path="search" element={<UserSearch/>} />
+        <Route path="searchFriends" element={<UserSearch/>} />
         <Route path="friendsList" element={<FriendsList/>} />
         <Route path="notifications" element={<NotificationsTab/>} />
-
+        <Route path="userProfile" element={<UserProfile/>} />
 
 
       </Route>

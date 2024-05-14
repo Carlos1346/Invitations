@@ -59,20 +59,20 @@ function NavDashboard() {
                         <Navbar.Collapse id="navbarScroll">
                             <Nav className="me-auto my-2 my-lg-0" navbarScroll>
                                 <Nav.Link as={Link} to="calendar">Calendario</Nav.Link>
-                                <Nav.Link as={Link} to="search">Busqueda</Nav.Link>
+                                
+                                <NavDropdown title="Busqueda" id="navbarScrollingDropdown">
+                                    <NavDropdown.Item as={Link} to="searchFriends">Buscar amigos</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="searchEvents">Buscar eventos</NavDropdown.Item>
+                                </NavDropdown>
                                 <NavDropdown title="Eventos" id="navbarScrollingDropdown">
                                     <NavDropdown.Item as={Link} to="createEvent">Crear Evento</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="eventList">Mis eventos</NavDropdown.Item>
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item href="#action4">Agenda</NavDropdown.Item>
-                                    <NavDropdown.Item href="#action4">Recuerdos</NavDropdown.Item>
                                 </NavDropdown>
                                 <Nav.Link as={Link} to="notifications">Notificaciones</Nav.Link>
                                 
                                 <NavDropdown title="Perfil" id="navbarScrollingDropdown">
-                                    <NavDropdown.Item as={Link} to="friendsList">Ver Perfil</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="userProfile">Ver Perfil</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="friendsList">Amigos</NavDropdown.Item>
-                                    <NavDropdown.Item as={Link} to="eventList">Recuerdos</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="eventList">Solicitudes de Amistad</NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item href="#action4">
