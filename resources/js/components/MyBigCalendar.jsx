@@ -74,6 +74,8 @@ const MyBigCalendar = () => {
 
   // Renderizar el calendario una vez que se hayan cargado los eventos
   return (
+    <>
+    <h1>Calendario de eventos.</h1>
     <div style={{ height: 600, padding: 10, background: 'white' }}>
       {/* Calendario */}
       <Calendar
@@ -113,6 +115,7 @@ const MyBigCalendar = () => {
         </Modal.Footer>
       </Modal>
     </div>
+    </>
   );
 };
 
@@ -122,6 +125,7 @@ const EventComponent = ({ event }) => (
     <FontAwesomeIcon icon={faBirthdayCake} size="1x" /> {/* Icono de pastel de cumpleaños */}
     <strong className="event-title" title={event.title}>{event.title}</strong>
   </div>
+  
 );
 
 export default MyBigCalendar;

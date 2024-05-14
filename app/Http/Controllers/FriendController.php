@@ -133,4 +133,26 @@ class FriendController extends Controller
         return response()->json(['friends' => $friends]);
     }
 
+    public function getRequest()
+    {
+        $userId = auth()->id();
+
+       
+
+        // Obtener todas las solicitudes de amistad aceptadas donde el usuario autenticado es el destinatario
+        $receivedRequests = DB::table('friends')
+            ->where('user_id2', $userId)
+            ->where('accepted', false)
+            ->pluck('user_id1')
+            ->toArray();
+
+        // Combinar las dos listas para obtener todos los amigos
+        $friendIds = $receivedRequests;
+
+        // Obtener los detalles de los usuarios amigos
+        $friends = User::whereIn('id', $friendIds)->get();
+
+        return response()->json(['friends' => $friends]);
+    }
+
 }
