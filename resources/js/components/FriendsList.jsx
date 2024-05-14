@@ -52,7 +52,7 @@ function FriendsList() {
 
   return (
     <div>
-      <h1>Lista de Amigos</h1>
+      <h1>Lista de Amigos.</h1>
       <Table striped bordered hover>
         <thead>
           <tr>

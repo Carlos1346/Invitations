@@ -46,7 +46,7 @@ function NotificationsTab() {
 
   return (
     <Container>
-      <h1>Notificaciones</h1>
+      <h1>Notificaciones.</h1>
       {loading ? (
         <p>Cargando...</p>
       ) : error ? (

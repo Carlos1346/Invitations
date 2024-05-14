@@ -46,6 +46,9 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('friendships/remove/{id}', [FriendController::class, 'unfriend']);
     Route::get('friendships/getfriends', [FriendController::class, 'getFriends']);
     Route::get('notifications', [NotificationsController::class, 'indexNotifications']);
+    Route::get('getrequest', [FriendController::class, 'getRequest']);
+
+
 
 
     //Rutas UserController

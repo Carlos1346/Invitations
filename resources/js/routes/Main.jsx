@@ -19,6 +19,8 @@ import '../../css/Main.css'
 import UserSearch from '../components/UserSearch';
 import NotificationsTab from '../components/NotificationsTab';
 import UserProfile from '../components/UserProfile';
+import EventSearch from '../components/EventSearch';
+import RequestsList from '../components/RequestList';
 
 
 function Main() {
@@ -40,9 +42,11 @@ function Main() {
         <Route path="createEvent" element={<EventCreateForm/>} />
         <Route path="eventList" element={<EventList/>} />
         <Route path="searchFriends" element={<UserSearch/>} />
+        <Route path="searchEvents" element={<EventSearch/>} />
         <Route path="friendsList" element={<FriendsList/>} />
         <Route path="notifications" element={<NotificationsTab/>} />
         <Route path="userProfile" element={<UserProfile/>} />
+        <Route path="requestList" element={<RequestsList/>} />
 
 
       </Route>

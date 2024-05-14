@@ -73,7 +73,7 @@ function NavDashboard() {
                                 <NavDropdown title="Perfil" id="navbarScrollingDropdown">
                                     <NavDropdown.Item as={Link} to="userProfile">Ver Perfil</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="friendsList">Amigos</NavDropdown.Item>
-                                    <NavDropdown.Item as={Link} to="eventList">Solicitudes de Amistad</NavDropdown.Item>
+                                    {/*<NavDropdown.Item as={Link} to="requestList">Solicitudes de Amistad</NavDropdown.Item>*/}
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item href="#action4">
                                         <Button variant="outline-secondary" onClick={toggleDarkMode}>

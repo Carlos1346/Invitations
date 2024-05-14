@@ -69,15 +69,15 @@ class EventController extends Controller
     {
         $termino = $request->input('termino');
 
-        $usuarios = DB::table('events')
+        $events = DB::table('events')
             ->where('event_name', 'like', '%'.$termino.'%')
             ->get();
 
-        if ($usuarios->isEmpty()) {
+        if ($events->isEmpty()) {
             return response()->json(['mensaje' => 'No se encontraron usuarios que coincidan con el término de búsqueda proporcionado'], 404);
         }
 
-        return response()->json($usuarios);
+        return response()->json($events);
     }
 }
 

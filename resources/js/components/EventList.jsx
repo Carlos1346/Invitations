@@ -47,6 +47,9 @@ const EventList = () => {
     };
 
     return (
+        <>
+        <h1>Tus eventos.</h1>
+      
         <Table striped bordered hover>
             <thead>
                 <tr>
@@ -71,6 +74,7 @@ const EventList = () => {
                 ))}
             </tbody>
         </Table>
+        </>
     );
 };
 
