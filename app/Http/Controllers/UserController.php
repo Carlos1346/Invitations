@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -41,9 +42,22 @@ class UserController extends Controller
         }
     }
 
+
+    public function showAuthenticatedUser()
+    {
+        $id = auth()->id();
+        $user = DB::table('users')->find($id);
+        if ($user) {
+            return response()->json($user);
+        } else {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+    }
+
+
     public function update(Request $request)
     {
-        $id=auth()->id();
+        $id = auth()->id();
         $user = DB::table('users')->find($id);
 
         if ($user) {
@@ -73,7 +87,7 @@ class UserController extends Controller
 
     public function destroy()
     {
-        $id=auth()->id();
+        $id = auth()->id();
         $user = DB::table('users')->find($id);
         if ($user) {
             DB::table('friends')->where('user_id1', $id)->orWhere('user_id2', $id)->delete();
@@ -91,7 +105,7 @@ class UserController extends Controller
         $termino = $request->input('termino');
 
         $usuarios = DB::table('users')
-            ->where('name', 'like', '%'.$termino.'%')
+            ->where('name', 'like', '%' . $termino . '%')
             ->get();
 
         if ($usuarios->isEmpty()) {

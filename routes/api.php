@@ -50,6 +50,8 @@ Route::middleware('auth:api')->group(function () {
 
     //Rutas UserController
     Route::delete('users_destroy', [UserController::class, 'destroy']);
+    Route::get('showAuthenticatedUser', [UserController::class, 'showAuthenticatedUser']);
+    
 
     //Rutas EventAttedaceController
     Route::get('event_attendances_index', [EventAttendanceController::class, 'index']);
