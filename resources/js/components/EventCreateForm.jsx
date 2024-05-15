@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
-import axios from 'axios';
+import React, { useState } from "react";
+import { Form, Button, Container, Alert } from "react-bootstrap";
+import axios from "axios";
 import { useToken } from "../context/TokenContext";
 
 const EventCreateForm = () => {
     const { token } = useToken();
 
     const [formData, setFormData] = useState({
-        event_name: '',
-        event_date: '',
-        event_address: '',
-        event_description: '',
-        event_rules: '',
-        public_private: '',
+        event_name: "",
+        event_date: "",
+        event_address: "",
+        event_description: "",
+        event_rules: "",
+        public_private: "",
     });
+
+    const [successMessage, setSuccessMessage] = useState(""); // Estado para el mensaje de éxito
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,15 +25,19 @@ const EventCreateForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost/Invitations/public/api/events_create', formData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            // Aquí puedes manejar la respuesta del servidor si es necesario
-            console.log('Evento creado exitosamente');
+            await axios.post(
+                "http://localhost/Invitations/public/api/events_create",
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setSuccessMessage("Evento creado exitosamente"); // Actualizar el mensaje de éxito
+            console.log("Evento creado exitosamente");
         } catch (error) {
-            console.error('Error al crear evento:', error);
+            console.error("Error al crear evento:", error);
         }
     };
 
@@ -39,6 +45,15 @@ const EventCreateForm = () => {
         <>
             <Container className="py-5" style={{ backgroundColor: "#fff" }}>
                 <h1>¡Crea un nuevo evento!</h1>
+                {successMessage && ( // Mostrar el mensaje de éxito si existe
+                    <Alert
+                        variant="success"
+                        onClose={() => setSuccessMessage("")}
+                        dismissible
+                    >
+                        {successMessage}
+                    </Alert>
+                )}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="event_name">
                         <Form.Label>Nombre del Evento</Form.Label>

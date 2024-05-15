@@ -23,6 +23,9 @@ Route::get('users_search', [UserController::class, 'search']);
 
 
 
+
+
+
 //Rutas protegidas con autenticacion de usuario
 Route::middleware('auth:api')->group(function () {
     //Rutas RegisterController
@@ -54,6 +57,7 @@ Route::middleware('auth:api')->group(function () {
     //Rutas UserController
     Route::delete('users_destroy', [UserController::class, 'destroy']);
     Route::get('showAuthenticatedUser', [UserController::class, 'showAuthenticatedUser']);
+    Route::put('update', [UserController::class, 'update']);
     
 
     //Rutas EventAttedaceController

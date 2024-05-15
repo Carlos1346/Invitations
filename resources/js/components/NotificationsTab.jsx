@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Container, ListGroup, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useToken } from "../context/TokenContext";
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -10,6 +12,8 @@ function NotificationsTab() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Agregar el hook useNavigate
+
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -36,8 +40,9 @@ function NotificationsTab() {
     fetchNotifications();
   }, [token]);
 
-  function handleAcceptRequest(notificationId) {
-    console.log("Aceptar solicitud:", notificationId);
+  function handleViewRequest(notificationId) {
+    navigate(`/Invitations/public/Dashboard/requestList`);
+
   }
 
   function handleRejectRequest(notificationId) {
@@ -56,8 +61,7 @@ function NotificationsTab() {
           {notifications.map(notification => (
             <ListGroup.Item key={notification.id}>
               <p>{notification.data.sender_name} te ha enviado una solicitud de amistad.</p>
-              <Button variant="success" onClick={() => handleAcceptRequest(notification.id)}>Aceptar</Button>{' '}
-              <Button variant="danger" onClick={() => handleRejectRequest(notification.id)}>Rechazar</Button>
+              <Button variant="success" onClick={() => handleViewRequest()}>Ir a Solicitudes de Amistad</Button>{' '}
             </ListGroup.Item>
           ))}
         </ListGroup>

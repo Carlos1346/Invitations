@@ -133,26 +133,38 @@ class FriendController extends Controller
         return response()->json(['friends' => $friends]);
     }
 
-    public function getRequest()
+    public function getindex()
     {
         $userId = auth()->id();
 
-       
-
-        // Obtener todas las solicitudes de amistad aceptadas donde el usuario autenticado es el destinatario
+        // Obtener todas las solicitudes de amistad recibidas donde el usuario autenticado es el destinatario
         $receivedRequests = DB::table('friends')
             ->where('user_id2', $userId)
             ->where('accepted', false)
             ->pluck('user_id1')
             ->toArray();
 
-        // Combinar las dos listas para obtener todos los amigos
-        $friendIds = $receivedRequests;
+        // Obtener los detalles de los usuarios que enviaron las solicitudes de amistad
+        $friends = User::whereIn('id', $receivedRequests)->get();
 
-        // Obtener los detalles de los usuarios amigos
-        $friends = User::whereIn('id', $friendIds)->get();
-
-        return response()->json(['friends' => $friends]);
+        return response()->json(['requests' => $friends]);
     }
+    public function getRequest()
+{
+    $userId = auth()->id();
+
+    // Obtener todas las solicitudes de amistad pendientes donde el usuario autenticado es el destinatario
+    $receivedRequests = DB::table('friends')
+        ->where('user_id2', $userId)
+        ->where('accepted', false)
+        ->pluck('user_id1')
+        ->toArray();
+
+    // Obtener los detalles de los usuarios que enviaron las solicitudes de amistad pendientes
+    $pendingFriendRequests = User::whereIn('id', $receivedRequests)->get();
+
+    return response()->json(['pendingFriendRequests' => $pendingFriendRequests]);
+}
+
 
 }
