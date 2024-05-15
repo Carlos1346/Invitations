@@ -21,6 +21,8 @@ import NotificationsTab from '../components/NotificationsTab';
 import UserProfile from '../components/UserProfile';
 import EventSearch from '../components/EventSearch';
 import RequestsList from '../components/RequestList';
+import EventEditForm from '../components/EventEditForm';
+import UserEditForm from '../components/UserEditForm';
 
 
 function Main() {
@@ -47,11 +49,13 @@ function Main() {
         <Route path="notifications" element={<NotificationsTab/>} />
         <Route path="userProfile" element={<UserProfile/>} />
         <Route path="requestList" element={<RequestsList/>} />
+        
+        <Route path="eventEdit/:eventId" element={<EventEditForm />} />
+        <Route path="userEdit" element={<UserEditForm />} />
+
 
 
       </Route>
-
-      <Route path="/Invitations/public/Dashboard/Paco" element={<FriendsList />} />
     </Routes>
     </div>
     </>

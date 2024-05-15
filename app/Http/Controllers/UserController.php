@@ -13,24 +13,7 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-    public function create(Request $request)
-    {
-        $request->validate([
-            'username' => 'required|string|unique:users',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:8',
-            // Otras reglas de validación según tus necesidades
-        ]);
 
-        DB::table('users')->insert([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            // Otros campos del usuario
-        ]);
-
-        return response()->json(['message' => 'User created successfully'], 201);
-    }
 
     public function show($id)
     {
@@ -57,33 +40,42 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
+        // Obtener el ID del usuario autenticado
         $id = auth()->id();
+
+        // Buscar al usuario por su ID
         $user = DB::table('users')->find($id);
 
         if ($user) {
+            // Validar los datos enviados en la solicitud
             $request->validate([
-                'username' => 'string|unique:users,username,' . $id,
+                'name' => 'string',
                 'email' => 'email|unique:users,email,' . $id,
-                'password' => 'string|min:8',
-                // Otras reglas de validación según tus necesidades
+                'password' => 'nullable|string|min:6',
             ]);
 
+            // Crear un array con los datos a actualizar
             $data = [
-                'username' => $request->username,
+                'name' => $request->name,
                 'email' => $request->email,
             ];
 
-            if ($request->has('password')) {
+            // Verificar si se envió una nueva contraseña y hashearla
+            if ($request->filled('password')) {
                 $data['password'] = bcrypt($request->password);
             }
 
+            // Actualizar los datos del usuario en la base de datos
             DB::table('users')->where('id', $id)->update($data);
 
-            return response()->json(['message' => 'User updated successfully']);
+            // Retornar una respuesta exitosa
+            return response()->json(['message' => 'Usuario actualizado correctamente']);
         } else {
+            // Retornar un error si el usuario no se encuentra
             return response()->json(['error' => 'User not found'], 404);
         }
     }
+
 
     public function destroy()
     {

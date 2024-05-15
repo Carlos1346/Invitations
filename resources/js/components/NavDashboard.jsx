@@ -32,23 +32,7 @@ function NavDashboard() {
         }
     };
 
-    useEffect(() => {
-        const fetchNotifications = async () => {
-            try {
-                const response = await axios.get("http://localhost/Invitations/public/api/notifications", {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                setNotificationCount(response.data.total); // Actualizar el estado de notificaciones con el total de notificaciones recibidas
-                setLoadingNotifications(false);
-            } catch (error) {
-                console.error("Error al obtener notificaciones:", error);
-                setLoadingNotifications(false);
-            }
-        };
-
-        fetchNotifications();
-    }, [token]);
-
+    
     return (
         <>
             <div style={{ position: "fixed", top: 0, left: 0, width: "100%", zIndex: 1000 }}>

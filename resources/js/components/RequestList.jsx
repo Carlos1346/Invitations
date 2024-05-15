@@ -3,69 +3,81 @@ import { Table, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useToken } from "../context/TokenContext";
 
-
-function RequestsList() {
-  const [requests, setRequests] = useState([]);
-  const [error, setError] = useState(null);
-  const { token } = useToken();
+const RequestsList = () => {
+    const [pendingFriendRequests, setPendingFriendRequests] = useState([]);
+    const { token } = useToken();
 
 
-  useEffect(() => {
-    const fetchRequests = async () => {
-      try {
-        const response = await axios.get('http://localhost/Invitations/public/api/getRequest',
-        {
+    useEffect(() => {
+        fetchPendingFriendRequests();
+    }, []);
 
+    const fetchPendingFriendRequests = () => {
+        axios.get('http://localhost/Invitations/public/api/getrequest', {
             headers: {
-                Authorization: `Bearer ${token}`,
-            },
-
-        }); 
-        setRequests(response.data.friends);
-      } catch (error) {
-        setError('Error al cargar las solicitudes de amistad');
-      }
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                setPendingFriendRequests(response.data.pendingFriendRequests);
+            })
+            .catch(error => {
+                console.error('Error fetching pending friend requests:', error);
+            });
     };
 
-    fetchRequests();
-  }, []);
+    const handleAccept = (userId) => {
+        axios.put('http://localhost/Invitations/public/api/acceptFriendRequest', { userId })
+            .then(response => {
+                console.log('Friend request accepted for user with ID:', userId);
+                // Actualizar la lista de solicitudes después de aceptar
+                fetchPendingFriendRequests();
+            })
+            .catch(error => {
+                console.error('Error accepting friend request:', error);
+            });
+    };
 
-  const acceptRequest = (userId) => {
-    // Lógica para aceptar la solicitud de amistad
-  };
+    const handleReject = (userId) => {
+        axios.post('/api/rejectFriendRequest', { userId })
+            .then(response => {
+                console.log('Friend request rejected for user with ID:', userId);
+                // Actualizar la lista de solicitudes después de rechazar
+                fetchPendingFriendRequests();
+            })
+            .catch(error => {
+                console.error('Error rejecting friend request:', error);
+            });
+    };
 
-  const rejectRequest = (userId) => {
-    // Lógica para rechazar la solicitud de amistad
-  };
-
-  return (
-    <div>
-      {error && <p>Error: {error}</p>}
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {requests.map((request) => (
-            <tr key={request.id}>
-              <td>{request.id}</td>
-              <td>{request.name}</td>
-              <td>{request.email}</td>
-              <td>
-                <Button variant="success" onClick={() => acceptRequest(request.id)}>Aceptar</Button>{' '}
-                <Button variant="danger" onClick={() => rejectRequest(request.id)}>Rechazar</Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
-  );
-}
+    return (
+        <div>
+            <h2>Solicitudes de Amistad Pendientes</h2>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {pendingFriendRequests.map(request => (
+                        <tr key={request.id}>
+                            <td>{request.id}</td>
+                            <td>{request.name}</td>
+                            <td>{request.email}</td>
+                            <td>
+                                <Button variant="success" onClick={() => handleAccept(request.id)}>Aceptar</Button>{' '}
+                                <Button variant="danger" onClick={() => handleReject(request.id)}>Rechazar</Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+        </div>
+    );
+};
 
 export default RequestsList;

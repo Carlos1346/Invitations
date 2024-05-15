@@ -3,13 +3,16 @@ import { Container, Row, Col, Card, Image, Button } from "react-bootstrap";
 import axios from "axios";
 import { useToken } from "../context/TokenContext";
 import EventList from '../components/EventList';
-
 import FriendsList from "./FriendsList";
+import { useNavigate } from 'react-router-dom';
+
 
 function UserProfile() {
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
     const { token } = useToken();
+    const navigate = useNavigate(); // Agregar el hook useNavigate
+
 
     useEffect(() => {
         async function fetchUser() {
@@ -52,8 +55,8 @@ function UserProfile() {
     };
 
     const handleEditUser = () => {
-        // Implementa la lógica para editar el usuario aquí
-        alert("Función de edición de usuario aún no implementada.");
+        // Redireccionar a la página de edición del usuario autenticado
+        navigate(`/Invitations/public/Dashboard/userEdit`);
     };
 
     return (
