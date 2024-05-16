@@ -58,7 +58,7 @@ function FriendsList() {
           <tr>
             <th>Nombre</th>
             <th>Correo Electrónico</th>
-            <th>Acciones</th>
+           
           </tr>
         </thead>
         <tbody>
@@ -66,9 +66,6 @@ function FriendsList() {
             <tr key={friend.id}>
               <td>{friend.name}</td>
               <td>{friend.email}</td>
-              <td>
-                <Button onClick={() => handleViewProfile(friend.id)} variant="primary">Ver Perfil</Button>
-              </td>
             </tr>
           ))}
         </tbody>
