@@ -45,10 +45,6 @@ function NotificationsTab() {
 
   }
 
-  function handleRejectRequest(notificationId) {
-    console.log("Rechazar solicitud:", notificationId);
-  }
-
   return (
     <Container>
       <h1>Notificaciones.</h1>

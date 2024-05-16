@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('event_rules')->nullable();
             $table->enum('public_private', ['public', 'private']);
             $table->unsignedBigInteger('user_id_creator');
-            $table->foreign('user_id_creator')->references('id')->on('users');
+            $table->foreign('user_id_creator')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

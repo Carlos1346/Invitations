@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { Form, Button, Container, Alert } from "react-bootstrap";
 import axios from "axios";
 import { useToken } from "../context/TokenContext";
+import { useNavigate } from 'react-router-dom';
+
 
 const EventCreateForm = () => {
     const { token } = useToken();
+    const navigate = useNavigate();
+
 
     const [formData, setFormData] = useState({
         event_name: "",
@@ -36,6 +40,8 @@ const EventCreateForm = () => {
             );
             setSuccessMessage("Evento creado exitosamente"); // Actualizar el mensaje de éxito
             console.log("Evento creado exitosamente");
+            navigate("/Invitations/public/Dashboard/eventList");
+
         } catch (error) {
             console.error("Error al crear evento:", error);
         }
