@@ -42,20 +42,30 @@ class FriendController extends Controller
         return response()->json(['message' => 'Friend request sent'], 201);
     }
     // Método para aceptar una solicitud de amistad
-    public function acceptFriendRequest(Request $request, $id)
+    public function acceptFriendRequest($userId)
     {
-        // Buscar la solicitud de amistad por su ID
-        $friendRequest = DB::table('friends')->find($id);
+        // Obtener el ID del usuario autenticado
+        $authenticatedUserId = auth()->id();
 
-        if (!$friendRequest) {
+        // Consulta SQL para obtener la solicitud de amistad
+        $friend = DB::table('friends')
+            ->where('user_id1', $userId)
+            ->where('user_id2', $authenticatedUserId)
+            ->first();
+
+        // Verificar si se encontró una solicitud de amistad
+        if ($friend) {
+            // Actualizar la solicitud como aceptada
+            DB::table('friends')
+                ->where('id', $friend->id)
+                ->update(['accepted' => true]);
+
+            return response()->json(['message' => 'Friend request accepted']);
+        } else {
             return response()->json(['message' => 'Friend request not found'], 404);
         }
-
-        // Actualizar la solicitud como aceptada
-        DB::table('friends')->where('id', $id)->update(['accepted' => true]);
-
-        return response()->json(['message' => 'Friend request accepted']);
     }
+
 
     // Método para rechazar una solicitud de amistad
     public function rejectFriendRequest(Request $request, $id)
@@ -150,21 +160,27 @@ class FriendController extends Controller
         return response()->json(['requests' => $friends]);
     }
     public function getRequest()
-{
-    $userId = auth()->id();
+    {
+        $userId = auth()->id();
 
-    // Obtener todas las solicitudes de amistad pendientes donde el usuario autenticado es el destinatario
-    $receivedRequests = DB::table('friends')
-        ->where('user_id2', $userId)
-        ->where('accepted', false)
-        ->pluck('user_id1')
-        ->toArray();
+        // Obtener todas las solicitudes de amistad pendientes donde el usuario autenticado es el destinatario
+        $receivedRequests = DB::table('friends')
+            ->where('user_id2', $userId)
+            ->where('accepted', false)
+            ->pluck('user_id1')
+            ->toArray();
 
-    // Obtener los detalles de los usuarios que enviaron las solicitudes de amistad pendientes
-    $pendingFriendRequests = User::whereIn('id', $receivedRequests)->get();
+        // Obtener los detalles de los usuarios que enviaron las solicitudes de amistad pendientes
+        $pendingFriendRequests = User::whereIn('id', $receivedRequests)->get();
 
-    return response()->json(['pendingFriendRequests' => $pendingFriendRequests]);
-}
+        return response()->json(['pendingFriendRequests' => $pendingFriendRequests]);
+    }
+
+    
+
+
+
+
 
 
 }

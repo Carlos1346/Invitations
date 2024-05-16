@@ -9,7 +9,6 @@ import LoginForm from '../components/LoginForm';
 import NavDashboard from '../components/NavDashboard';
 import RegisterForm from '../components/RegisterForm';
 import EventCard from '../components/EventCard';
-import Example from '../components/Example';
 import FriendsList from '../components/FriendsList';
 import MyBigCalendar from '../components/MyBigCalendar';
 import EventCreateForm from '../components/EventCreateForm';

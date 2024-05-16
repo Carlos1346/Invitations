@@ -7,7 +7,6 @@ const RequestsList = () => {
     const [pendingFriendRequests, setPendingFriendRequests] = useState([]);
     const { token } = useToken();
 
-
     useEffect(() => {
         fetchPendingFriendRequests();
     }, []);
@@ -18,36 +17,40 @@ const RequestsList = () => {
                 Authorization: `Bearer ${token}`
             }
         })
-            .then(response => {
-                setPendingFriendRequests(response.data.pendingFriendRequests);
-            })
-            .catch(error => {
-                console.error('Error fetching pending friend requests:', error);
-            });
+        .then(response => {
+            setPendingFriendRequests(response.data.pendingFriendRequests);
+        })
+        .catch(error => {
+            console.error('Error fetching pending friend requests:', error);
+        });
     };
 
-    const handleAccept = (userId) => {
-        axios.put('http://localhost/Invitations/public/api/acceptFriendRequest', { userId })
-            .then(response => {
-                console.log('Friend request accepted for user with ID:', userId);
-                // Actualizar la lista de solicitudes después de aceptar
-                fetchPendingFriendRequests();
-            })
-            .catch(error => {
-                console.error('Error accepting friend request:', error);
-            });
+    const handleAccept = (friendRequestId) => {
+        axios.put(`http://localhost/Invitations/public/api/friend_requests/accept/${friendRequestId}`, null, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            console.log('Friend request accepted for ID:', friendRequestId);
+            // Actualizar la lista de solicitudes después de aceptar
+            fetchPendingFriendRequests();
+        })
+        .catch(error => {
+            console.error('Error accepting friend request:', error);
+        });
     };
 
     const handleReject = (userId) => {
         axios.post('/api/rejectFriendRequest', { userId })
-            .then(response => {
-                console.log('Friend request rejected for user with ID:', userId);
-                // Actualizar la lista de solicitudes después de rechazar
-                fetchPendingFriendRequests();
-            })
-            .catch(error => {
-                console.error('Error rejecting friend request:', error);
-            });
+        .then(response => {
+            console.log('Friend request rejected for user with ID:', userId);
+            // Actualizar la lista de solicitudes después de rechazar
+            fetchPendingFriendRequests();
+        })
+        .catch(error => {
+            console.error('Error rejecting friend request:', error);
+        });
     };
 
     return (

@@ -71,7 +71,7 @@ const EventList = () => {
                             <td>
                                 <Button variant="info" onClick={() => handleShow(event.id)}>Mostrar</Button>{' '}
                                 <Button variant="warning" onClick={() => handleEdit(event.id)}>Editar</Button>{' '}
-                                <Button variant="danger" onClick={() => handleDelete(event.id)}>Eliminar</Button>
+                                <Button variant="danger" onClick={() => handleDelete(event.id)}>Eliminar</Button>{' '}
                             </td>
                         </tr>
                     ))}
