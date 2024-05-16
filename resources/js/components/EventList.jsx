@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Table, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Table, Button } from "react-bootstrap";
 import { useToken } from "../context/TokenContext";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const EventList = () => {
     const [events, setEvents] = useState([]);
@@ -12,14 +12,17 @@ const EventList = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await axios.get('http://localhost/Invitations/public/api/indexUserEvents', {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                const response = await axios.get(
+                    "http://localhost/Invitations/public/api/indexUserEvents",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
                 setEvents(response.data.events);
             } catch (error) {
-                console.error('Error fetching events:', error);
+                console.error("Error fetching events:", error);
             }
         };
 
@@ -27,26 +30,25 @@ const EventList = () => {
     }, []);
 
     const handleEdit = (eventId) => {
-        console.log('Edit event with id:', eventId);
+        console.log("Edit event with id:", eventId);
         navigate(`/Invitations/public/Dashboard/eventEdit/${eventId}`);
-    };
-
-    const handleShow = (eventId) => {
-        console.log('Show event with id:', eventId);
     };
 
     const handleDelete = async (eventId) => {
         try {
-            await axios.delete(`http://localhost/Invitations/public/api/events_destroy/${eventId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            await axios.delete(
+                `http://localhost/Invitations/public/api/events_destroy/${eventId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
             // Actualizar la lista de eventos después de eliminar
-            setEvents(events.filter(event => event.id !== eventId));
-            console.log('Evento eliminado exitosamente');
+            setEvents(events.filter((event) => event.id !== eventId));
+            console.log("Evento eliminado exitosamente");
         } catch (error) {
-            console.error('Error al eliminar evento:', error);
+            console.error("Error al eliminar evento:", error);
         }
     };
 
@@ -63,15 +65,24 @@ const EventList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {events.map(event => (
+                    {events.map((event) => (
                         <tr key={event.id}>
                             <td>{event.event_name}</td>
                             <td>{event.event_date}</td>
                             <td>{event.event_address}</td>
                             <td>
-                                <Button variant="info" onClick={() => handleShow(event.id)}>Mostrar</Button>{' '}
-                                <Button variant="warning" onClick={() => handleEdit(event.id)}>Editar</Button>{' '}
-                                <Button variant="danger" onClick={() => handleDelete(event.id)}>Eliminar</Button>{' '}
+                                <Button
+                                    variant="warning"
+                                    onClick={() => handleEdit(event.id)}
+                                >
+                                    Editar
+                                </Button>{" "}
+                                <Button
+                                    variant="danger"
+                                    onClick={() => handleDelete(event.id)}
+                                >
+                                    Eliminar
+                                </Button>{" "}
                             </td>
                         </tr>
                     ))}
