@@ -4,13 +4,13 @@ import { Table, Button } from "react-bootstrap";
 import { useToken } from "../context/TokenContext";
 import { useNavigate } from "react-router-dom";
 
-const EventList = () => {
+function EventList() {
     const [events, setEvents] = useState([]);
     const { token } = useToken();
-    const navigate = useNavigate(); // Agregar el hook useNavigate
+    const navigate = useNavigate(); 
 
     useEffect(() => {
-        const fetchEvents = async () => {
+        async function fetchEvents() {
             try {
                 const response = await axios.get(
                     "http://localhost/Invitations/public/api/indexUserEvents",
@@ -24,17 +24,17 @@ const EventList = () => {
             } catch (error) {
                 console.error("Error fetching events:", error);
             }
-        };
+        }
 
         fetchEvents();
-    }, []);
+    }, [token]);
 
-    const handleEdit = (eventId) => {
+    function handleEdit(eventId) {
         console.log("Edit event with id:", eventId);
         navigate(`/Invitations/public/Dashboard/eventEdit/${eventId}`);
-    };
+    }
 
-    const handleDelete = async (eventId) => {
+    async function handleDelete(eventId) {
         try {
             await axios.delete(
                 `http://localhost/Invitations/public/api/events_destroy/${eventId}`,
@@ -50,7 +50,7 @@ const EventList = () => {
         } catch (error) {
             console.error("Error al eliminar evento:", error);
         }
-    };
+    }
 
     return (
         <>
@@ -90,6 +90,6 @@ const EventList = () => {
             </Table>
         </>
     );
-};
+}
 
 export default EventList;

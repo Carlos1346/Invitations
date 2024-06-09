@@ -8,7 +8,7 @@ function EventSearch() {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [events, setEvents] = useState([]); // Estado para almacenar los eventos
+    const [events, setEvents] = useState([]); 
     const { token } = useToken();
 
     const handleSearch = async (e) => {
@@ -114,7 +114,6 @@ function EventSearch() {
                         <span className="visually-hidden">Loading...</span>
                     </Spinner>
                 ) : (
-                    
                     <Row>
                         {searchResults.map((event) => (
                             <Col key={event.id} xs={12} md={6} lg={4}>
@@ -157,9 +156,7 @@ function EventSearch() {
                                                     ? "secondary"
                                                     : "primary"
                                             }
-                                            disabled={
-                                                event.asistencia === true
-                                            }
+                                            disabled={event.asistencia === true}
                                             onClick={handleToggleAttendance(
                                                 event.id,
                                                 true

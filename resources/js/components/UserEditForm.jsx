@@ -3,7 +3,7 @@ import axios from "axios";
 import { Form, Button, Container, Alert } from "react-bootstrap";
 import { useToken } from "../context/TokenContext";
 
-const UserEditForm = () => {
+function UserEditForm() {
     const { token } = useToken();
 
     // Estado para los campos del formulario y mensajes de éxito/error
@@ -16,17 +16,17 @@ const UserEditForm = () => {
     const [errorMessage, setErrorMessage] = useState("");
 
     // Manejar cambios en los campos del formulario
-    const handleChange = (e) => {
+    function handleChange(e) {
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
-    };
+    }
 
     // Cargar los datos del usuario desde el servidor
     useEffect(() => {
-        const fetchUserData = async () => {
+        async function fetchUserData() {
             try {
                 const response = await axios.get(
                     "http://localhost/Invitations/public/api/showAuthenticatedUser",
@@ -41,18 +41,18 @@ const UserEditForm = () => {
                 setFormData({
                     name: userData.name,
                     email: userData.email,
-                    password: "", 
+                    password: "",
                 });
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }
-        };
+        }
 
         fetchUserData();
     }, [token]);
 
     // Enviar la solicitud de actualización al servidor
-    const handleSubmit = async (e) => {
+    async function handleSubmit(e) {
         e.preventDefault();
         try {
             const response = await axios.put(
@@ -70,7 +70,7 @@ const UserEditForm = () => {
             setErrorMessage(error.response.data.error);
             setSuccessMessage("");
         }
-    };
+    }
 
     return (
         <Container className="py-5" style={{ backgroundColor: "#fff" }}>
@@ -115,6 +115,6 @@ const UserEditForm = () => {
             </Form>
         </Container>
     );
-};
+}
 
 export default UserEditForm;

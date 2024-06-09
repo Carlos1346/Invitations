@@ -14,7 +14,7 @@ class NotificationsController extends Controller
         $notifications = DB::table('notifications')
             ->where('notifiable_id', $user->id)
             ->orderBy('created_at', 'desc')
-            ->get(); // Ejecutar la consulta y obtener los resultados
+            ->get();
 
         return response()->json($notifications);
     }

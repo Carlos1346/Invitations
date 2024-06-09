@@ -30,12 +30,11 @@ function Main() {
     <div id='Background'>    
     <Routes>
       {/* Ruta para la vista inicial "Start" */}
-      <Route path="/Invitations/public/Start" element={<LoginPage />}>
+      <Route path="/Invitations/public/" element={<LoginPage />}>
         <Route path="login" element={<LoginForm />} />
         <Route path="register" element={<RegisterForm />} />
         {/* <Route path="*" element={<Navigate replace to="/Invitations/public/Start" />} /> */}
       </Route>
-
       {/* Ruta para la vista después de la autenticación "Dashboard" */}
       <Route path="/Invitations/public/Dashboard" element={<NavDashboard />}>
         <Route path="events" element={<EventCard />} />
@@ -47,13 +46,9 @@ function Main() {
         <Route path="friendsList" element={<FriendsList/>} />
         <Route path="notifications" element={<NotificationsTab/>} />
         <Route path="userProfile" element={<UserProfile/>} />
-        <Route path="requestList" element={<RequestsList/>} />
-        
+        <Route path="requestList" element={<RequestsList/>} />        
         <Route path="eventEdit/:eventId" element={<EventEditForm />} />
         <Route path="userEdit" element={<UserEditForm />} />
-
-
-
       </Route>
     </Routes>
     </div>

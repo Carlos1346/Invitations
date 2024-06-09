@@ -12,20 +12,6 @@ use App\Http\Controllers\EventAttendanceController;
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login'])->name('login');
 
-//Rutas UserController
-Route::get('users_index', [UserController::class, 'index']);
-Route::post('users_create', [UserController::class, 'create']);
-Route::get('users_show/{id}', [UserController::class, 'show']);
-Route::put('users_update/{id}', [UserController::class, 'update']);
-Route::delete('users_destroy/{id}', [UserController::class, 'destroy']);
-Route::get('users_search', [UserController::class, 'search']);
-
-
-
-
-
-
-
 //Rutas protegidas con autenticacion de usuario
 Route::middleware('auth:api')->group(function () {
     //Rutas RegisterController
@@ -58,7 +44,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('users_destroy', [UserController::class, 'destroy']);
     Route::get('showAuthenticatedUser', [UserController::class, 'showAuthenticatedUser']);
     Route::put('update', [UserController::class, 'update']);
-    
+
 
     //Rutas EventAttedaceController
     Route::get('event_attendances_index', [EventAttendanceController::class, 'index']);
@@ -71,6 +57,14 @@ Route::middleware('auth:api')->group(function () {
     Route::get('list_user_events', [EventAttendanceController::class, 'listUserEvents']);
     Route::get('attendance_statistics', [EventAttendanceController::class, 'attendanceStatistics']);
 });
+
+//Rutas UserController
+Route::get('users_index', [UserController::class, 'index']);
+Route::post('users_create', [UserController::class, 'create']);
+Route::get('users_show/{id}', [UserController::class, 'show']);
+Route::put('users_update/{id}', [UserController::class, 'update']);
+Route::delete('users_destroy/{id}', [UserController::class, 'destroy']);
+Route::get('users_search', [UserController::class, 'search']);
 
 
 

@@ -12,7 +12,7 @@ class RegisterController extends Controller
 {
     public function register(Request $request)
     {
-        // Validation
+        // Validaciones
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
@@ -23,23 +23,20 @@ class RegisterController extends Controller
             return response()->json(['error' => $validator->errors()], 422);
         }
 
-        // Create user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
 
-        // Passport token
         $token = $user->createToken('AppName')->accessToken;
 
         return response()->json(['token' => $token], 201);
     }
-
     
     public function login(Request $request)
     {
-        // Validation
+        // Validacion
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string',

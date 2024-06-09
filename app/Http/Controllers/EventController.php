@@ -8,12 +8,14 @@ use App\Models\Event;
 
 class EventController extends Controller
 {
+    //Obtienes los registros de la tabla events
     public function index()
     {
         $events = DB::table("events")->get();
         return $events;
     }
 
+    //Obtiene los eventos de los usuarios que creo el usuario autenticado
     public function indexUserEvents()
     {
         // Obtener el ID del usuario autenticado
@@ -26,6 +28,7 @@ class EventController extends Controller
         return response()->json(['events' => $events], 200);
     }
 
+    //Funcion para crear un evento
     public function create(Request $request)
     {
         DB::table('events')->insert([
@@ -39,12 +42,13 @@ class EventController extends Controller
         ]);
     }
 
+    //Funcion para mostrar un evento en especifico
     public function show(string $id)
     {
         $event = DB::table('events')->where('id', $id)->first();
         return $event;
     }
-
+    //Funcion para actualizar un evento
     public function update(Request $request, $id)
     {
         DB::table('events')
@@ -60,11 +64,13 @@ class EventController extends Controller
             ]);
     }
 
+    //Funcion para eliminar un evento
     public function destroy(string $id)
     {
         DB::table('events')->where('id', $id)->delete();
     }
 
+    //Funcion para la barra de busqueda de eventos
     public function search(Request $request)
     {
         $termino = $request->input('termino');
