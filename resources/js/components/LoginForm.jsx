@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Modal, Row, Col } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useToken } from "../context/TokenContext";
 
 function LoginForm() {
@@ -94,5 +94,3 @@ function LoginForm() {
 }
 
 export default LoginForm;
-
-

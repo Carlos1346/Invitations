@@ -8,35 +8,22 @@ use App\Models\EventAttendance;
 
 class EventAttendanceController extends Controller
 {
-    /**
-     * Muestra una lista de todas las asistencias a eventos.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
+     //Muestra una lista de todas las asistencias a eventos.    
     public function index()
     {
         $eventAttendances = DB::table('event_attendances')->get();
         return response()->json($eventAttendances);
     }
-
-    /**
-     * Muestra los detalles de una asistencia de evento específica.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
+   
+     //Muestra los detalles de una asistencia de evento específica.    
     public function show($id)
     {
         $eventAttendance = DB::table('event_attendances')->where('id', $id)->first();
         return response()->json($eventAttendance);
     }
-
-    /**
-     * Almacena una nueva asistencia a un evento.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+   
+     // Almacena una nueva asistencia a un evento.
     public function store(Request $request)
     {
         $userId = auth()->id();
@@ -52,13 +39,7 @@ class EventAttendanceController extends Controller
         return response()->json(['message' => 'Event attendance created successfully'], 201);
     }
 
-    /**
-     * Actualiza una asistencia de evento existente.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
+     //Actualiza una asistencia de evento existente.    
     public function update(Request $request, $id)
     {
         $userId = auth()->id();
@@ -75,12 +56,8 @@ class EventAttendanceController extends Controller
         return response()->json(['message' => 'Event attendance updated successfully'], 200);
     }
 
-    /**
-     * Elimina una asistencia de evento existente.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
+ 
+     //Elimina una asistencia de evento existente.     
     public function destroy($event_id)
     {
         $userId = auth()->id();
@@ -93,12 +70,8 @@ class EventAttendanceController extends Controller
         return response()->json(['message' => 'Event attendance deleted successfully'], 200);
     }
 
-    /**
-     * Marca la asistencia de un usuario a un evento.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+   
+     //Marca la asistencia de un usuario a un evento.    
     public function markAttendance(Request $request)
     {
         $userId = auth()->id();

@@ -12,13 +12,10 @@ class FriendController extends Controller
     // Método para enviar una solicitud de amistad
     public function sendFriendRequest(Request $request)
     {
-        // Validar la solicitud
         $request->validate([
-            //'user_id1' => 'required|exists:users,id',
             'user_id2' => 'required|exists:users,id',
         ]);
 
-        // Crear una nueva solicitud de amistad
         DB::table('friends')->insert([
             'user_id1' => auth()->id(),
             'user_id2' => $request->user_id2,
@@ -27,35 +24,28 @@ class FriendController extends Controller
             'updated_at' => now(),
         ]);
 
-        // Obtener el destinatario de la solicitud de amistad
         $recipient = User::find($request->user_id2);
 
-        // Verificar que se haya encontrado el destinatario
         if ($recipient) {
-            // Enviar la notificación al destinatario pasando el usuario remitente
             $recipient->notify(new FriendRequestNotification());
         } else {
-            // Manejar el caso en que no se haya encontrado el destinatario
             return response()->json(['error' => 'Recipient not found'], 404);
         }
 
         return response()->json(['message' => 'Friend request sent'], 201);
     }
+
     // Método para aceptar una solicitud de amistad
     public function acceptFriendRequest($userId)
     {
-        // Obtener el ID del usuario autenticado
         $authenticatedUserId = auth()->id();
 
-        // Consulta SQL para obtener la solicitud de amistad
         $friend = DB::table('friends')
             ->where('user_id1', $userId)
             ->where('user_id2', $authenticatedUserId)
             ->first();
 
-        // Verificar si se encontró una solicitud de amistad
         if ($friend) {
-            // Actualizar la solicitud como aceptada
             DB::table('friends')
                 ->where('id', $friend->id)
                 ->update(['accepted' => true]);
@@ -70,14 +60,12 @@ class FriendController extends Controller
     // Método para rechazar una solicitud de amistad
     public function rejectFriendRequest(Request $request, $id)
     {
-        // Buscar la solicitud de amistad por su ID
         $friendRequest = DB::table('friends')->find($id);
 
         if (!$friendRequest) {
             return response()->json(['message' => 'Friend request not found'], 404);
         }
 
-        // Eliminar la solicitud de amistad
         DB::table('friends')->where('id', $id)->delete();
 
         return response()->json(['message' => 'Friend request rejected']);
@@ -86,14 +74,12 @@ class FriendController extends Controller
     // Método para cancelar una solicitud de amistad enviada
     public function cancelFriendRequest(Request $request, $id)
     {
-        // Buscar la solicitud de amistad por su ID
         $friendRequest = DB::table('friends')->find($id);
 
         if (!$friendRequest) {
             return response()->json(['message' => 'Friend request not found'], 404);
         }
 
-        // Eliminar la solicitud de amistad
         DB::table('friends')->where('id', $id)->delete();
 
         return response()->json(['message' => 'Friend request cancelled']);
@@ -120,14 +106,14 @@ class FriendController extends Controller
     {
         $userId = auth()->id();
 
-        // Obtener todas las solicitudes de amistad aceptadas donde el usuario autenticado es el remitente
+        // Obtener todas las solicitudes de amistad aceptadas donde el usuario autenticado es el user_id1
         $sentRequests = DB::table('friends')
             ->where('user_id1', $userId)
             ->where('accepted', true)
             ->pluck('user_id2')
             ->toArray();
 
-        // Obtener todas las solicitudes de amistad aceptadas donde el usuario autenticado es el destinatario
+        // Obtener todas las solicitudes de amistad aceptadas donde es el id2
         $receivedRequests = DB::table('friends')
             ->where('user_id2', $userId)
             ->where('accepted', true)
@@ -147,7 +133,7 @@ class FriendController extends Controller
     {
         $userId = auth()->id();
 
-        // Obtener todas las solicitudes de amistad recibidas donde el usuario autenticado es el destinatario
+        // Obtener todas las solicitudes de amistad recibidas donde el usuario autenticado es el user_id2
         $receivedRequests = DB::table('friends')
             ->where('user_id2', $userId)
             ->where('accepted', false)
@@ -163,7 +149,7 @@ class FriendController extends Controller
     {
         $userId = auth()->id();
 
-        // Obtener todas las solicitudes de amistad pendientes donde el usuario autenticado es el destinatario
+        // Obtener todas las solicitudes de amistad pendientes donde el usuario autenticado es el user_id2
         $receivedRequests = DB::table('friends')
             ->where('user_id2', $userId)
             ->where('accepted', false)
@@ -176,7 +162,7 @@ class FriendController extends Controller
         return response()->json(['pendingFriendRequests' => $pendingFriendRequests]);
     }
 
-    
+
 
 
 

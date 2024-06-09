@@ -13,8 +13,6 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-
-
     public function show($id)
     {
         $user = DB::table('users')->find($id);
@@ -24,7 +22,6 @@ class UserController extends Controller
             return response()->json(['error' => 'User not found'], 404);
         }
     }
-
 
     public function showAuthenticatedUser()
     {
@@ -37,17 +34,15 @@ class UserController extends Controller
         }
     }
 
-
+    //Funcion para actulizar el usuario autenticado
     public function update(Request $request)
     {
-        // Obtener el ID del usuario autenticado
         $id = auth()->id();
 
         // Buscar al usuario por su ID
         $user = DB::table('users')->find($id);
 
         if ($user) {
-            // Validar los datos enviados en la solicitud
             $request->validate([
                 'name' => 'string',
                 'email' => 'email|unique:users,email,' . $id,
@@ -89,9 +84,6 @@ class UserController extends Controller
             return response()->json(['error' => 'User not found'], 404);
         }
     }
-
-
-
     public function search(Request $request)
     {
         $termino = $request->input('termino');
